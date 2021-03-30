@@ -1,8 +1,9 @@
 version: '3.0'
 
 services:
+
   www_data:
-    image: gmap/apaxy
+    image: gmap/apaxy:latest
     container_name: apaxy
     ports:
       - 80:80
@@ -12,5 +13,18 @@ services:
   geoserver:
     image: chbrandt/geoserver:latest
     container_name: geoserver
+    environment:
+      GEOSERVER_DATA_DIR: '/var/lib/geoserver_data'
     ports:
       - 8080:8080
+    volumes:
+      - geoserver_data:/var/lib/geoserver_data
+
+  mapstore:
+    image: geosolutionsit/mapstore2:2021.01.01
+    container_name: mapstore
+    ports:
+      - 8282:8080
+
+volumes:
+  geoserver_data:
