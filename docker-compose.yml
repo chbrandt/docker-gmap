@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  www_data:
+    image: gmap/apaxy
+    container_name: apaxy
+    ports:
+      - 80:80
+    volumes:
+      - ${PWD}/tmp:/var/www/html/pub
+
+  geoserver:
+    image: chbrandt/geoserver:latest
+    container_name: geoserver
+    ports:
+      - 8080:8080
