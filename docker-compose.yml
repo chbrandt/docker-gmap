@@ -2,29 +2,30 @@ version: '3.0'
 
 services:
 
-  www_data:
-    image: gmap/apaxy:latest
-    container_name: data
-    ports:
-      - "${PORT_DATA:-80}:80"
-    volumes:
-      - ${PWD}/tmp:/var/www/html/pub
-
   geoserver:
-    image: chbrandt/geoserver:latest
     container_name: geoserver
     environment:
-      GEOSERVER_DATA_DIR: '/var/lib/geoserver_data'
+      GEOSERVER_DATA_DIR: /var/lib/geoserver_data
+    image: chbrandt/geoserver:latest
     ports:
-      - "${PORT_GEOSERVER:-8080}:8080"
+      - ${PORT_GEOSERVER:-8080}:8080
     volumes:
       - geoserver_data:/var/lib/geoserver_data
+      - ${VOLUME_PUB:-.}:/mnt/data
+
+  www_data:
+    container_name: data
+    image: gmap/apaxy:latest
+    ports:
+      - ${PORT_DATA:-80}:80
+    volumes:
+      - ${VOLUME_PUB:-.}:/var/www/html/pub
 
   www_maps:
-    image: chbrandt/maps-viewer:gmap
     container_name: maps
+    image: chbrandt/maps-viewer:gmap
     ports:
-      - "${PORT_MAPS:-3000}:3000"
+      - ${PORT_MAPS:-3000}:3000
 
 volumes:
   geoserver_data:
