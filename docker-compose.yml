@@ -4,9 +4,9 @@ services:
 
   www_data:
     image: gmap/apaxy:latest
-    container_name: apaxy
+    container_name: data
     ports:
-      - 80:80
+      - "${PORT_DATA:-80}:80"
     volumes:
       - ${PWD}/tmp:/var/www/html/pub
 
@@ -16,15 +16,15 @@ services:
     environment:
       GEOSERVER_DATA_DIR: '/var/lib/geoserver_data'
     ports:
-      - 8080:8080
+      - "${PORT_GEOSERVER:-8080}:8080"
     volumes:
       - geoserver_data:/var/lib/geoserver_data
 
-  mapstore:
-    image: geosolutionsit/mapstore2:2021.01.01
-    container_name: mapstore
+  www_maps:
+    image: chbrandt/maps-viewer:gmap
+    container_name: maps
     ports:
-      - 8282:8080
+      - "${PORT_MAPS:-3000}:3000"
 
 volumes:
   geoserver_data:
