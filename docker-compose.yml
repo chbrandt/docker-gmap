@@ -10,7 +10,15 @@ services:
     ports:
       - ${PORT_GEOSERVER:-8080}:8080
     volumes:
-      - geoserver_data:/var/lib/geoserver_data
+      # - geoserver_data:/var/lib/geoserver_data
+      - ${VOLUME_PUB:-.}:/mnt/data
+
+  jupyterhub:
+    container_name: jupyter
+    image: chbrandt/gispy:jupyterhub
+    ports:
+      - ${PORT_JUPYTER:-8000}:8000
+    volumes:
       - ${VOLUME_PUB:-.}:/mnt/data
 
   www_data:
