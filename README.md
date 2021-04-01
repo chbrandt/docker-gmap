@@ -11,6 +11,7 @@ Use Docker and docker-compose to run the services:
 The following services are defined:
 * `data-fileserver` (`PORT_DATA: 80`)
 * `geoserver` (`PORT_GEOSERVER: 8080`)
+* `jupyter` (`PORT_JUPYTER: 8000`)
 * `maps-viewer` (`PORT_MAPS: 3000`)
 
 The default ports (indicated above) can be changed through docker-compose'
