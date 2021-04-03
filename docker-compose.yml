@@ -11,7 +11,7 @@ services:
       - ${PORT_GEOSERVER:-8080}:8080
     volumes:
       # - geoserver_data:/var/lib/geoserver_data
-      - ${VOLUME_PUB:-.}:/mnt/data
+      - ${VOLUME_PUB:-./data}:/mnt/data
 
   jupyterhub:
     container_name: jupyter
@@ -19,7 +19,8 @@ services:
     ports:
       - ${PORT_JUPYTER:-8000}:8000
     volumes:
-      - ${VOLUME_PUB:-.}:/mnt/data
+      - ${VOLUME_PUB:-./data}:/mnt/data
+      - ${VOLUME_JNB:-./notebooks}:/mnt/notebooks
 
   www_data:
     container_name: data
@@ -27,7 +28,7 @@ services:
     ports:
       - ${PORT_DATA:-80}:80
     volumes:
-      - ${VOLUME_PUB:-.}:/var/www/html/pub
+      - ${VOLUME_PUB:-./data}:/var/www/html/pub
 
   www_maps:
     container_name: maps
