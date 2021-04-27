@@ -2,6 +2,14 @@ version: '3.0'
 
 services:
 
+  flask:
+    container_name: home
+    environment:
+      FLASK_ENV: production
+    image: chbrandt/data_site:latest
+    ports:
+      - 80:5000
+
   geoserver:
     container_name: geoserver
     environment:
@@ -17,7 +25,7 @@ services:
     container_name: jupyter
     image: chbrandt/gispy:jupyterhub
     ports:
-      - ${PORT_JUPYTER:-8000}:8000
+      - ${PORT_JUPYTER:-8888}:8000
     volumes:
       - ${VOLUME_PUB:-./data}:/mnt/data
       - ${VOLUME_JNB:-./notebooks}:/mnt/notebooks
@@ -26,7 +34,7 @@ services:
     container_name: data
     image: gmap/apaxy:latest
     ports:
-      - ${PORT_DATA:-80}:80
+      - ${PORT_DATA:-8282}:80
     volumes:
       - ${VOLUME_PUB:-./data}:/var/www/html/pub
 
@@ -34,7 +42,7 @@ services:
     container_name: maps
     image: chbrandt/maps-viewer:gmap
     ports:
-      - ${PORT_MAPS:-3000}:3000
+      - ${PORT_MAPS:-8484}:3000
 
 volumes:
   geoserver_data:

@@ -13,6 +13,7 @@ The following services are defined:
 * `geoserver` (`PORT_GEOSERVER: 8080`)
 * `jupyter` (`PORT_JUPYTER: 8000`)
 * `maps-viewer` (`PORT_MAPS: 3000`)
+* `data-submit` (`80: 5000`)
 
 The default ports (indicated above) can be changed through docker-compose'
 `.env` file.
