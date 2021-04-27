@@ -8,7 +8,7 @@ services:
       FLASK_ENV: production
     image: chbrandt/data_site:latest
     ports:
-      - 80:5000
+      - ${PORT_HOME:-80}:5000
 
   geoserver:
     container_name: geoserver
@@ -20,15 +20,6 @@ services:
     volumes:
       # - geoserver_data:/var/lib/geoserver_data
       - ${VOLUME_PUB:-./data}:/mnt/data
-
-  jupyterhub:
-    container_name: jupyter
-    image: chbrandt/gispy:jupyterhub
-    ports:
-      - ${PORT_JUPYTER:-8888}:8000
-    volumes:
-      - ${VOLUME_PUB:-./data}:/mnt/data
-      - ${VOLUME_JNB:-./notebooks}:/mnt/notebooks
 
   www_data:
     container_name: data
@@ -43,6 +34,15 @@ services:
     image: chbrandt/maps-viewer:gmap
     ports:
       - ${PORT_MAPS:-8484}:3000
+
+  jupyterhub:
+    container_name: jupyter
+    image: chbrandt/gispy:jupyterhub
+    ports:
+      - ${PORT_JUPYTER:-8888}:8000
+    volumes:
+      - ${VOLUME_PUB:-./data}:/mnt/data
+      - ${VOLUME_JNB:-./notebooks}:/mnt/notebooks
 
 volumes:
   geoserver_data:
