@@ -6,7 +6,7 @@ services:
     container_name: home
     environment:
       FLASK_ENV: production
-    image: chbrandt/data_site:latest
+    image: gmap/data_site:latest
     ports:
       - ${PORT_HOME:-80}:5000
 
