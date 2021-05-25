@@ -37,7 +37,12 @@ services:
 
   jupyterhub:
     container_name: jupyter
-    image: chbrandt/gispy:jupyterhub
+    image: gmap/isis3:jupyterhub
+    environment:
+      GITLAB_CLIENT_ID: $GITLAB_CLIENT_ID
+      GITLAB_CLIENT_SECRET: $GITLAB_CLIENT_SECRET
+      GITLAB_CALLBACK_URL: $GITLAB_CALLBACK_URL
+      GITLAB_HOST: $GITLAB_HOST
     ports:
       - ${PORT_JUPYTER:-8888}:8000
     volumes:
